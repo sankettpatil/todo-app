@@ -3,6 +3,7 @@ import './App.css';
 import Todos from './Templates/Todos.jsx';
 import Login from './Templates/Login.jsx';
 import Register from './Templates/Register.jsx';
+import { Box, Button } from '@mui/material';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access'));
@@ -14,32 +15,49 @@ function App() {
     setIsLoggedIn(false);
   };
 
-
-  
   if (!isLoggedIn) {
     return (
       <div>
         {showRegister ? (
-          <>
-            <Register onRegister={() => setShowRegister(false)} />
-            <button onClick={() => setShowRegister(false)}>Back to Login</button>
-          </>
+          <Register onRegister={() => setShowRegister(false)} onShowLogin={() => setShowRegister(false)} />
         ) : (
-          <>
-            <Login onLogin={() => setIsLoggedIn(true)} />
-            <button onClick={() => setShowRegister(true)}>Register</button>
-          </>
+          <Login
+            onLogin={() => setIsLoggedIn(true)}
+            onShowRegister={() => setShowRegister(true)}
+          />
         )}
       </div>
     );
   }
 
   return (
-    <div>
-      <button onClick={handleLogout}>Logout</button>
+    <>
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          mt: 4,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="error"
+          sx={{
+            borderRadius: 5,
+            textTransform: 'none',
+            fontWeight: 'bold',
+            width: 200,
+            fontSize: 20,
+            py: 1,
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </Box>
       <Todos />
-    </div>
-    
+    </>
   );
 }
 

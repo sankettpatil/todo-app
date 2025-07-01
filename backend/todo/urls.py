@@ -7,5 +7,6 @@ urlpatterns = [
     path('todos/add/', add_todo),  
     path('todos/<int:pk>/', update_todo),
     path('todos/<int:pk>/delete/', delete_todo),  
+    
 
 ]
